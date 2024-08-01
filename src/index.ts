@@ -26,3 +26,8 @@ export const getClient = (config: ClientConfig): PromiseClient<typeof ApiaryServ
     });
     return createPromiseClient(ApiaryService, transport);
 };
+
+export * from "./pb/apiary/v1/models_pb";
+export * from "./pb/apiary/v1/responses_pb";
+export * from "./pb/apiary/v1/requests_pb";
+export * from "./pb/apiary/v1/service_connect";

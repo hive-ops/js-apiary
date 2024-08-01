@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Entry } from "./pb/apiary/v1/models_pb";
-import { getClient } from "./index";
+import { Entry, getClient } from "./index";
 
 describe("Apiary Client", () => {
     const client = getClient({
