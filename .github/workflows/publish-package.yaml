@@ -1,0 +1,65 @@
+name: Publish Package
+
+on:
+  push:
+    tags:
+      - '*'
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      - name: "Save workspace"
+        id: cache-build
+        uses: actions/cache/save@v3
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}-${{ github.ref }}
+
+  publish-to-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache/restore@v3
+        id: cache-restore
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}-${{ github.ref }}
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-to-jsr:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/cache/restore@v3
+        id: cache-restore
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}-${{ github.ref }}
+
+      - name: Publish to JSR
+        run: npx jsr publish --allow-slow-types

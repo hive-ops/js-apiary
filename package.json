@@ -1,7 +1,7 @@
 {
-  "name": "js-apiary",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@hiveops/apiary",
+  "version": "0.0.1",
+  "description": "JS client for Apiary Cache Server",
   "main": "index.js",
   "scripts": {
     "build": "rm -rf lib && tsc",
