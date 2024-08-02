@@ -1,6 +1,6 @@
 {
   "name": "@hiveops/apiary",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "JS client for Apiary Cache Server",
   "main": "index.js",
   "scripts": {
