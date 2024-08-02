@@ -8,7 +8,7 @@ on:
     types: [published]
 
 jobs:
-  build:
+  publish-to-npm:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
@@ -36,6 +36,11 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
 
       - name: Publish to JSR
         run: npx jsr publish --allow-slow-types --allow-dirty
