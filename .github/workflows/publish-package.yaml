@@ -48,5 +48,8 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      - name: Install JSR
+        run: npm install -g jsr
+
       - name: Publish to JSR
-        run: npx jsr publish --allow-slow-types --allow-dirty
+        run: jsr publish --allow-slow-types --allow-dirty
