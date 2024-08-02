@@ -55,8 +55,9 @@ bump-version:
 
 	git add package.json package-lock.json jsr.json
 
-	git commit -m "Bump version to $(shell node -p "require('./package.json').version")"
+	git commit -m "Bump version to v$(shell node -p "require('./package.json').version")"
 
 	git tag v$(shell node -p "require('./package.json').version")
 
-	#git push origin v$(shell node -p "require('./package.json').version")
+	git push
+	git push origin v$(shell node -p "require('./package.json').version")
