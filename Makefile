@@ -59,4 +59,4 @@ bump-version:
 
 	git tag v$(shell node -p "require('./package.json').version")
 
-	git push origin v$(shell node -p "require('./package.json').version")
+	#git push origin v$(shell node -p "require('./package.json').version")
