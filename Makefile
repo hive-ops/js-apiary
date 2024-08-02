@@ -47,3 +47,14 @@ pull-submodules:
 
 tests:
 	go test -v `go list ./... | grep -v ./pb` -race -coverprofile=coverage.out; go tool cover -html=coverage.out
+
+bump-version:
+	VERSION=$(shell npm version patch --no-git-tag-version)
+
+	@jq --arg new_version "$(shell node -p "require('./package.json').version")" '.version = $$new_version' jsr.json > jsr.tmp.json && mv jsr.tmp.json jsr.json
+
+	git add package.json package-lock.json jsr.json
+
+	git commit -m "Bump version to $(shell node -p "require('./package.json').version")"
+
+	git tag v$(shell node -p "require('./package.json').version")
