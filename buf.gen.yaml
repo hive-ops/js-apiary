@@ -11,6 +11,12 @@ plugins:
     opt: target=ts
 #  - remote: buf.build/bufbuild/es
 #    out: src/pb
+#    opt: target=ts
+#  - remote: buf.build/connectrpc/es
+#    out: src/pb
+#    opt: target=ts
+#  - remote: buf.build/bufbuild/es
+#    out: src/pb
 #  - remote: buf.build/connectrpc/es
 #    out: src/pb
 

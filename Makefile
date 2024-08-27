@@ -23,15 +23,17 @@ start-services:
 compile-proto:
 	find ./src/pb -name "*.d.ts" -exec rm {} +
 	find ./src/pb -name "*.js" -exec rm {} +
+	find ./src/pb -name "*.ts" -exec rm {} +
 	buf generate --path=apiary-proto/apiary
 	find ./src/pb -name "*.ts" -type f -print0 | xargs -0 sed -i '' 's/_pb\.js/_pb/g'
 
 compile-proto-ts:
 	find ./src/pb -name "*.d.ts" -exec rm {} +
+	find ./src/pb -name "*.ts" -exec rm {} +
 	find ./src/pb -name "*.js" -exec rm {} +
 	protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto \
 	 --ts_proto_out=src/pb \
-	 --ts_proto_opt=outputServices=grpc-js \
+	 --ts_proto_opt=outputClientImpl=grpc-web \
 	 --ts_proto_opt=esModuleInterop=true \
 	 -I=apiary-proto/ apiary-proto/apiary/v1/*.proto
 

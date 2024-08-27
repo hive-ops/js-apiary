@@ -1,8 +1,17 @@
 version: '3'
 
 services:
-
-  apiary:
+  envoy:
+    image: envoyproxy/envoy:v1.20.0
+    container_name: envoy-instance-for-js-client-testing
+    ports:
+      - "9901:9901"  # Admin port
+      - "8080:8080"  # gRPC port
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+    depends_on:
+      - apiary-server
+  apiary-server:
     image: poph2/apiary:latest
     container_name: apiary-instance-for-js-client-testing
     ports:
